@@ -40,6 +40,20 @@ iterateDictionary(students)
 print("\n\n######## Get Values form a list of Dicts #########")
 def iterateDictionary2(key_name, some_list):
 	for dict in some_list:
-		print(dict[key_name]
+		print(dict[key_name])
 
 iterateDictionary2('first_name', students)
+
+print("\n\n######## Iterate Through a dict with list values ##########")
+dojo = {
+   'locations': ['San Jose', 'Seattle', 'Dallas', 'Chicago', 'Tulsa', 'DC', 'Burbank'],
+   'instructors': ['Michael', 'Amy', 'Eduardo', 'Josh', 'Graham', 'Patrick', 'Minh', 'Devon']
+}
+
+def printInfo(some_dict):
+	for key, values in some_dict.items():
+		print("\n",len(values),key)
+		for value in values:
+			print(value)
+printInfo(dojo)
+
