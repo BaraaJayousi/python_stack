@@ -36,3 +36,10 @@ def iterateDictionary(input_list):
 	
 iterateDictionary(students)
 
+
+print("\n\n######## Get Values form a list of Dicts #########")
+def iterateDictionary2(key_name, some_list):
+	for dict in some_list:
+		print(dict[key_name]
+
+iterateDictionary2('first_name', students)
