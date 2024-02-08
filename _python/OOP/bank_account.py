@@ -28,7 +28,6 @@ class BankAccount:
         return self
 
 
-
 #Testing the class
 savings_account = BankAccount(0.02)
 current_account = BankAccount(0.021, 2000)
