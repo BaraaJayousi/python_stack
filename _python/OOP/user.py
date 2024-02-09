@@ -35,22 +35,24 @@ class User:
     def __init__(self, name, email):
         self.name = name
         self.email = email
-        self.account = BankAccount(0.01)
+        self.account = {"savings": BankAccount(0.005),
+                        "current": BankAccount(0.02)}
 
     #adds the deposited amount into the account balance
-    def make_depoist(self, amount):
-        self.account.deposit(amount)
-        print(f"{self.name} Deposited {amount}$\n")
+    def make_depoist(self, account_name, amount):
+        self.account[account_name].deposit(amount)
+        print(f"{self.name} Deposited {amount}$ to {account_name} account\n")
         return self
 
     #Withdraws money from the account balance
-    def make_withdrawal(self, amount):
-        self.account.withdraw(amount)
+    def make_withdrawal(self, account_name, amount):
+        self.account[account_name].withdraw(amount)
+        print(f"{self.name} Withdrew {amount}$ from {account_name} account\n")
         return self
 
     #display user's name and current balance
-    def display_user_balance(self):
-        print(f"Username: {self.name} Balacnce: ${self.account.balance}\n")
+    def display_user_balance(self, account_name):
+        print(f"Username: {self.name} Balacnce: ${self.account[account_name].balance} in {account_name} account\n")
         return self
 
 #create new instances of the class User
@@ -59,12 +61,10 @@ anna = User("Anna", "anna@example.com")
 monty = User("Monty","monty@example.com")
 
 #First user
-michael.make_depoist(100).make_depoist(200).make_depoist(212).make_withdrawal(250)
+michael.make_depoist("savings",100).make_depoist("current",200).make_depoist("current",212).make_withdrawal("current",250).display_user_balance("current").display_user_balance("savings")
 
 #Second User
-anna.make_depoist(300).make_depoist(2100).make_withdrawal(32).make_withdrawal(1000).display_user_balance()
-
-
+# anna.make_depoist(300).make_depoist(2100).make_withdrawal(32).make_withdrawal(1000).display_user_balance()
 
 #Thrid User
-monty.make_depoist(20).make_withdrawal(15).make_withdrawal(2.5).make_withdrawal(2).display_user_balance()
+# monty.make_depoist(20).make_withdrawal(15).make_withdrawal(2.5).make_withdrawal(2).display_user_balance()
