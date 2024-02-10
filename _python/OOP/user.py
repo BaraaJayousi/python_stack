@@ -1,32 +1,33 @@
+from bank_account import BankAccount
 #Create bank account class
-class BankAccount:
-    def __init__(self, starting_int_rate = 0.01, starting_balance = 0):
-        self.balance = starting_balance
-        self.int_rate = starting_int_rate
+# class BankAccount:
+#     def __init__(self, starting_int_rate = 0.01, starting_balance = 0):
+#         self.balance = starting_balance
+#         self.int_rate = starting_int_rate
 
-    def deposit(self, amount):
-        self.balance += amount
-        return self
+#     def deposit(self, amount):
+#         self.balance += amount
+#         return self
     
-    def withdraw(self, amount):
-        if amount > self.balance:
-            print("Insufficient funds: Charging a $5 fee")
-            self.balance -= 5
-            return self
+#     def withdraw(self, amount):
+#         if amount > self.balance:
+#             print("Insufficient funds: Charging a $5 fee")
+#             self.balance -= 5
+#             return self
 
-        self.balance -= amount
-        return self
+#         self.balance -= amount
+#         return self
     
-    # def display_account_info(self):
-    #     print(f"Balance: {self.balance}")
-    #     return self
+#     # def display_account_info(self):
+#     #     print(f"Balance: {self.balance}")
+#     #     return self
 
-    def yeild_interest(self):
-        if self.balance > 0:
-            self.balance += self.balance * self.int_rate
-            return self
+#     def yeild_interest(self):
+#         if self.balance > 0:
+#             self.balance += self.balance * self.int_rate
+#             return self
 
-        return self
+#         return self
 
 
 
