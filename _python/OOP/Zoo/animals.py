@@ -64,9 +64,9 @@ class Giraffe(Animals):
         super().display_info()
         print(f"Unique Attribute: -> Neck Length: {self.neck_length}")
 
+if __name__ == "__main__":
+    giraffe1 = Giraffe("gi1",22)
+    tiger1 = Tiger("tig1", 2)
 
-giraffe1 = Giraffe("gi1",22)
-tiger1 = Tiger("tig1", 2)
-
-giraffe1.feed_animal()
-giraffe1.display_info()
+    giraffe1.feed_animal()
+    giraffe1.display_info()
