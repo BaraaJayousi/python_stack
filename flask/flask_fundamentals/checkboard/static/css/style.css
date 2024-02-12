@@ -13,10 +13,3 @@
     background-color: red;
 }
 
-.odd:nth-child(odd){
-    background-color: black;
-}
-
-.even:nth-child(even){
-    background-color: black;
-}

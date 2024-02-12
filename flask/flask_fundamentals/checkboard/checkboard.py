@@ -4,15 +4,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def checkboard_constant():
-    return render_template("index.html", x=8, y=8)
+    return render_template("index.html", x=8, y=8,col1 ="red",col2="black")
 
 @app.route("/<int:x>/")
 def checkboard_x_variable(x):
-    return render_template("index.html",x = int(x), y = 8)
+    return render_template("index.html",x = int(x), y = 8, col1="red", col2="black")
 
 @app.route("/<int:x>/<int:y>/")
 def checkboard_x_y_variable(x,y):
-    return render_template("index.html", x =int(x), y=int(y))
+    return render_template("index.html", x =int(x), y=int(y), col1="red", col2="black")
 
 @app.route("/<int:x>/<int:y>/<col1>/<col2>/")
 def checkboard_x_y_color_variable(x,y,col1,col2):
