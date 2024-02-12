@@ -1,0 +1,22 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.row{
+    display: flex;
+}
+
+.square{
+    height: 50px;
+    width: 50px;
+    background-color: red;
+}
+
+.odd:nth-child(odd){
+    background-color: black;
+}
+
+.even:nth-child(even){
+    background-color: black;
+}
