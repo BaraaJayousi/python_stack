@@ -9,5 +9,9 @@ def not_found(e):
 def hello_world():
     return "<h1>Hello World</h1>"
 
+@app.route('/hello/<name>')
+def hello(name):
+    return f"hello, {name}"
+
 if __name__  == '__main__':
     app.run(debug=True)
