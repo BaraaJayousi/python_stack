@@ -16,16 +16,16 @@ print("******** end mutliples of five *********\n\n")
 
 print("******** start  counting the dojo way ********\n")
 
-#Counting the dojo way
+#Continuing the dojo way
 for dojo_count in range(1,101):
-	if dojo_count % 5 == 0:
-		print("Coding")
-		continue
-	elif dojo_count % 10:
+	if dojo_count % 10 == 0:
 		print("Coding Dojo")
 		continue
+	elif dojo_count % 5 == 0:
+		print("Coding")
+		continue
 	
-	print("dojo_count")
+	print(dojo_count)
 
 print("********** end counting the dojo way *****\n\n")
 
