@@ -1,0 +1,13 @@
+{%extends "index.html"%}
+
+{%block content%}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{url_for('static', filename='placeholder.jpg')}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">User Details</h5>
+            <p class="card-text">Username: {{name_on_template}}</p>
+            <p class="card-text">Email: {{email_on_template}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+{%endblock%}
