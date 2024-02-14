@@ -29,8 +29,10 @@ class BankAccount:
 
 
 #Testing the class
-savings_account = BankAccount(0.02)
-current_account = BankAccount(0.021, 2000)
+if __name__ == "__main__":
 
-savings_account.display_account_info().deposit(3000).display_account_info().yeild_interest().display_account_info().withdraw(100).display_account_info()
-current_account.display_account_info().deposit(3000).display_account_info().yeild_interest().display_account_info().withdraw(100).display_account_info()
+    savings_account = BankAccount(0.02)
+    current_account = BankAccount(0.021, 2000)
+
+    savings_account.display_account_info().deposit(3000).display_account_info().yeild_interest().display_account_info().withdraw(100).display_account_info()
+    current_account.display_account_info().deposit(3000).display_account_info().yeild_interest().display_account_info().withdraw(100).display_account_info()
