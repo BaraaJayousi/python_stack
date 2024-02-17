@@ -1,13 +1,19 @@
 {%extends "index.html"%}
 
 {%block body%}
-    <h1>Provide us with your name</h1>
+    <h1>Provide us with your name and counting prefrence</h1>
 
     <form action="/register" method="POST">
         <div class="my-5 row">
             <label class="col-form-label col-1" for="name">Username:</label>
             <div class="col-4">
-                <input class="form-control" type="text" name="username" id="name">
+                <input class="form-control" type="text" name="username" id="name" placeholder="Your name here">
+            </div>
+        </div>
+        <div class="my-5 row">
+            <label class="col-form-label col-1" for="increment-value">Increment By:</label>
+            <div class="col-1">
+                <input class="form-control" type="number" name="increment" id="increment-value" value="0">
             </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Register">

@@ -14,8 +14,10 @@ def show_visits_count():
     if "username" not in session:
         print("hi")
         return render_template("register.html")
+    
+
     if "visit_count" in session:
-        session['visit_count'] += 1
+        session['visit_count'] += session['increment_value']
     else:
         session['visit_count'] = 0
     return render_template("index.html")
@@ -23,6 +25,7 @@ def show_visits_count():
 @app.route("/register/", methods=['POST'])
 def register_user():
     session['username'] = request.form['username']
+    session['increment_value'] = int(request.form['increment'])
     return redirect('/')
 
 @app.route('/destroy_session/')
@@ -32,7 +35,7 @@ def destroy_session():
 
 @app.route("/double-visit/")
 def double_visit():
-    session['visit_count'] += 1
+    session['visit_count'] += 2 - session['increment_value']
     return redirect('/')
 
 if __name__ == "__main__":
