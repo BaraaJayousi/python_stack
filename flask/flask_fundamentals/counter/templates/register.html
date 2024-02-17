@@ -1,0 +1,15 @@
+{%extends "index.html"%}
+
+{%block body%}
+    <h1>Provide us with your name</h1>
+
+    <form action="/register" method="POST">
+        <div class="my-5 row">
+            <label class="col-form-label col-1" for="name">Username:</label>
+            <div class="col-4">
+                <input class="form-control" type="text" name="username" id="name">
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+{%endblock%}
