@@ -30,5 +30,10 @@ def destroy_session():
     session.clear()
     return redirect("/")
 
+@app.route("/double-visit/")
+def double_visit():
+    session['visit_count'] += 1
+    return redirect('/')
+
 if __name__ == "__main__":
     app.run(debug=True)
