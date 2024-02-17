@@ -17,6 +17,7 @@
             </div>
             <div class="row my-2">
                 <div class="col-6 offset-3  ">
+                    <label class="form-label">Guess count: {{session['guess_count']}}</label>
                     {%if "answer" in session%}
                         {%if session['answer'] != "correct"%}
                             <div class="card col-4 offset-4 p-5 bg-danger">
@@ -27,9 +28,11 @@
                                 {%endif%}
                             </div>
                         {%else%}
-                            <div class="card col-4 offset-4 p-5 bg-success">
-                                <p>correct</p>
-                                <form action="/reset/" method="POST">
+                            <div class="card col-6 offset-3 py-2 bg-success">
+                                <h3>correct!</h3>
+                                <h4>{{session['random_num']}} was the number</h4>
+                                <h5>Guessed after: {{session['guess_count']}} guesses</h5>
+                                <form action="/reset/" method="GET">
                                     <div class="from-group ">
                                         <input class="btn btn-primary mt-4" type="submit" value="Play Again!">
                                     </div>
