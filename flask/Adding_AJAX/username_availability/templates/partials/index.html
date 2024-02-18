@@ -1,0 +1,19 @@
+<ul>
+{%if username_available%}
+    <li class="text-success">Username is available</li>
+{%else%}
+    <li class="text-danger">Username is not available</li>
+{%endif%}
+{%if email_available%}
+    <li class="text-success">Email is available</li>
+{%else%}
+    <li class="text-danger">Email is not available</li>
+{%endif%}
+{%if password_match%}
+    <li class="text-success">Passwords match</li>
+{%else%}
+    <li class="text-danger">Passwords do not match</li>
+{%endif%}
+
+
+</ul>
