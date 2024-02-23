@@ -15,6 +15,8 @@ def render_main_page():
     return render_template("index.html")
 
 @app.route("/process_money", methods=["POST"])
+## Best practices: Do Not return html tags ##
+## returning html tag with a parameter rather than a session would result in a better performance
 def process_money():
     locations = {"farm": random.randint(10,20),"house":random.randint(2,5), "cave":random.randint(5,10), "casino":random.randint(-50,50)}
     activity = ""
