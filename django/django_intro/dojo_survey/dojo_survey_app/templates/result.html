@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Survey</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Dojo Survey</h5>
+                <div class="container mt-2">
+                    <div class="row mb-3">
+                        <label for="username" class="col-1 col-form-label">Username:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="BaraaJayosui" readonly value="{{username}}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="email" class="col-1 col-form-label">Email:</label>
+                        <div class="col-8">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="example@example.com" readonly value="{{email}}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="location-select" class="col-1 col-form-label">Dojo Location:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="location-select" readonly value="{{dojo_location}}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="comments-section" class="col-1 col-form-label">Comments:</label>
+                        <div class="col-8">
+                            <textarea  class="form-control" name="comments" id="commentes-section" placeholder="Tell us what you think..." rows="3" readonly>{{comments}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
