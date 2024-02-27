@@ -37,5 +37,6 @@ def reset_game():
     random_number = random.randint(1,100)
     session['random_num'] = random_number
     return redirect("/")
+
 if __name__ == "__main__":
     app.run(debug=True)
