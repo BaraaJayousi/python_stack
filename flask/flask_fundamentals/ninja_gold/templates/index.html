@@ -59,8 +59,8 @@
         <div class="row mt-4">
             <h3>Acitivities:</h3>
             <div class="card overflow-auto" style="height:200px;">
-                {%for activity in session['activities']|reverse%}
-                {{activity |safe}}
+                {% for activity in session['activities']|reverse %}
+                    <h6 class="{{activity['class'] }}">{{ activity['content'] }}</h6>
                 {%endfor%}
             </div>
         </div>

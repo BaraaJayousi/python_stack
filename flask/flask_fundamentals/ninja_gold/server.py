@@ -19,12 +19,16 @@ def render_main_page():
 ## returning html tag with a parameter rather than a session would result in a better performance
 def process_money():
     locations = {"farm": random.randint(10,20),"house":random.randint(2,5), "cave":random.randint(5,10), "casino":random.randint(-50,50)}
-    activity = ""
+    activity = {}
     session['gold'] += locations[request.form['location']]
     if locations[request.form['location']] > 0:
-        activity = f"<h6 class='text-success'>Earned {locations[request.form['location']]} golds from  the {request.form['location']}: {strftime('%d %b %Y %H:%M:%S', gmtime())} </h6>"
+        activity["class"] = "text-success"
+        activity["content"] = f"Earned {locations[request.form['location']]} golds from  the {request.form['location']}: {strftime('%d %b %Y %H:%M:%S', gmtime())}"
+        # f"<h6 class='text-success'>Earned {locations[request.form['location']]} golds from  the {request.form['location']}: {strftime('%d %b %Y %H:%M:%S', gmtime())} </h6>"
     else:
-        activity = f"<h6 class='text-danger'>Entered a Casino and lost {locations[request.form['location']]} golds....Ouch.: : {strftime('%d %b %Y %H:%M:%S', gmtime())} </h6>"
+        activity["class"] = "text-danger"
+        activity["content"] = f"Entered a Casino and lost {locations[request.form['location']]} golds....Ouch.: : {strftime('%d %b %Y %H:%M:%S', gmtime())}"
+        # f"<h6 class='text-danger'>Entered a Casino and lost {locations[request.form['location']]} golds....Ouch.: : {strftime('%d %b %Y %H:%M:%S', gmtime())} </h6>"
     if "activities" not in session:
         session["activities"] = []
         session["activities"].append(activity)
