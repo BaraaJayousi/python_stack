@@ -1,0 +1,36 @@
+from dojo_ninja_app.models import *
+
+dojo_ny = Dojos.objects.create(name="ny dojo", city="new york city", state="new york") 
+dojo_la = Dojos.objects.create(name="la dojo", city="lose angelos" , state = "lose angelos")
+dojo_ls = Dojos.objects.create(name="ls dojo", city"lose santos" , state="las vegas")
+
+
+dojo_ny.delete()
+dojo_la.delete()
+dojo_ls.delete()
+
+
+Dojos.objects.create(name="Zenith Academy", city="Big Apple Metropolis", state="Empire State")
+Dojos.objects.create(name="Eastside Training Hub", city="Gotham City", state="Empire State")
+Dojos.objects.create(name="Mystic Sanctum", city="Empire Metropolis", state="New Yorkshire")
+
+Ninjas.objects.create(dojo=Dojos.objects.get(id=4), first_name="John", last_name ="Doe")  
+Ninjas.objects.create(dojo=Dojos.objects.get(id=4), first_name="Emily", last_name="Smith")
+Ninjas.objects.create(dojo=Dojos.objects.get(id=4), first_name="Michael", last_name="Johnson")
+
+Ninjas.objects.create(dojo=Dojos.objects.get(id=5), first_name="Samantha", last_name="Chen")
+Ninjas.objects.create(dojo=Dojos.objects.get(id=5), first_name="Daniel", last_name="Williams")
+Ninjas.objects.create(dojo=Dojos.objects.get(id=5), first_name="Michelle", last_name="Nguyen")
+
+Ninjas.objects.create(dojo=Dojos.objects.get(id=6), first_name="Alex", last_name="Garcia")
+Ninjas.objects.create(dojo=Dojos.objects.get(id=6), first_name="Sophia", last_name="Martinez")
+Ninjas.objects.create(dojo=Dojos.objects.get(id=6), first_name="Ethan", last_name="Rodriguez")
+
+
+Dojos.objects.first().ninjas.all()
+
+Dojos.objects.last().ninjas.all()
+
+Ninjas.objects.last().dojo 
+
+ Dojos.objects.create(name="Silent Mountain Dojo", city="Aspen Falls", state="Colorado", desc="new dojo")
