@@ -6,16 +6,10 @@ from django.db.models import Count
 
 def index(request):
     all_dojos = Dojos.objects.all()
-    cont = {"dojos_list" : []}
+    context = {"dojos_list" : []}
     for dojo in all_dojos:
-        cont['dojos_list'].append({'dojo':dojo, 'ninjas': Ninjas.objects.filter(dojo=dojo)})
-
-    print(cont)
-    context = {
-        'dojos': Dojos.objects.all(),
-        'ninjas': Ninjas.objects.all()
-    }
-    return render(request, "index.html", cont)
+        context['dojos_list'].append({'dojo':dojo, 'ninjas': Ninjas.objects.filter(dojo=dojo)})
+    return render(request, "index.html", context)
 
 
 def add_ninja(request):
@@ -27,4 +21,9 @@ def add_dojo(request):
     if request.method == "POST":
         Dojos.objects.create(name=request.POST['dojo_name'], city=request.POST['dojo_city'], state=request.POST['dojo_state'], desc="New Dojo")
 
+    return redirect('/')
+
+def delete_dojo(request):
+    if request.method == "POST":
+        Dojos.objects.get(id=request.POST['dojo_to_delete']).delete()
     return redirect('/')
