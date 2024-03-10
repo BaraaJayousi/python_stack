@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.db.models import Count
-
 # Create your views here.
 
 def index(request):
-    all_dojos = Dojos.objects.all()
-    context = {"dojos_list" : []}
-    for dojo in all_dojos:
-        context['dojos_list'].append({'dojo':dojo, 'ninjas': Ninjas.objects.filter(dojo=dojo)})
+    context = {
+        "dojos": Dojos.objects.all(),
+    }
+    
     return render(request, "index.html", context)
 
 

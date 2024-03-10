@@ -60,8 +60,8 @@
                         <div class="col-6">
                             <select class="form-select" name="selected_dojo" id="selected_dojo">
                                 <option selected>Select a Dojo</option>
-                                {% for dojo in dojos_list %}
-                                    <option value="{{dojo.dojo.id}}">{{dojo.dojo.name}}</option>
+                                {% for dojo in dojos %}
+                                    <option value="{{dojo.id}}">{{dojo.name}}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -77,36 +77,25 @@
         <div class="row mb-5 border-top border-dark border-3 text-center">
             <h1 class="my-4">All Dojos</h1>
             <div class="row">
-                <!-- {% for dojo in dojos %}
-                    <h4>Ninjas at {{dojo.name}} </h4>
-                    <ul>
-                    {% for ninja in ninjas %}
-                        {% if ninja.dojo.name == dojo.name %}
-                            <li>{{ninja.first_name}} {{ninja.last_name}}</li>
-                        {% endif %}
-                    {% endfor %}
-                    </ul>
-                {% endfor %} -->
-
                 <div class="accordion mb-5" id="dojos_accordion">
-                    {% for dojo in dojos_list %}
+                    {% for dojo in dojos %}
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#dojo-{{dojo.dojo.id}}" aria-expanded="true" aria-controls="dojo-{{dojo.dojo.id}}">
-                                    <h4>Ninjas at {{dojo.dojo.name}} - {{dojo.ninjas.count}} </h4>
+                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#dojo-{{dojo.id}}" aria-expanded="true" aria-controls="dojo-{{dojo.id}}">
+                                    <h4>Ninjas at {{dojo.name}} - {{dojo.ninjas.count}} </h4>
                                 </button>
                             </h2>
-                            <div class="accordion-collapse collapse" id="dojo-{{dojo.dojo.id}}" data-bs-parent="#dojos_accordion">
+                            <div class="accordion-collapse collapse" id="dojo-{{dojo.id}}" data-bs-parent="#dojos_accordion">
                                 <div class="accordion-body text-start">
                                     <form class="mb-5" action="delete-dojo/" method="post">
                                         {% csrf_token %}
-                                        <input type="hidden" name="dojo_to_delete" value="{{dojo.dojo.id}}">
+                                        <input type="hidden" name="dojo_to_delete" value="{{dojo.id}}">
                                             <div class="col-6">
                                                 <input class="btn btn-danger w-100" type="submit" value="Delete Dojo">
                                             </div>
                                     </form>
                                     <ul>
-                                        {% for ninja in dojo.ninjas %}
+                                        {% for ninja in dojo.ninjas.all %}
                                             <li>{{ninja.first_name|capfirst}} {{ninja.last_name|capfirst}}</li>
                                         {% endfor %}
                                     </ul>
