@@ -1,0 +1,54 @@
+{% extends "main_layout.html" %}
+{%block title %} Add an Author {% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-6 mb-3">
+            <h1 class="mb-5">Add an author</h1>
+            <form action="authors/add-author" method="post">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="f_name" class="col-form-label col-2">First Name</label>
+                    <div class="col-6">
+                        <input class="form-control" type="text" name="f_name" id="f_name">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="l_name" class="col-form-label col-2">Last Name</label>
+                    <div class="col-6">
+                        <input class="form-control" type="text" name="l_name" id="l_name">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="author_notes" class="col-form-label col-2">Notes</label>
+                    <div class="col-6">
+                        <textarea class="form-control" name="author_notes" id="author_notes" cols="30" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    
+                    <div class="col-6 offset-2">
+                        <input class="btn btn-primary w-100" type="submit" value="Add">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-6">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th class="text-center">Action</th>
+                </tr>
+                {% for author in authors %}
+                <tr class="">
+                    <td>{{author.id}}</td>
+                    <td>{{author.first_name | capfirst}}  {{author.last_name | capfirst}}</td>
+                    <td class="text-center"><a class='btn btn-primary w-50' href="authors/{{author.id}}">View</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
