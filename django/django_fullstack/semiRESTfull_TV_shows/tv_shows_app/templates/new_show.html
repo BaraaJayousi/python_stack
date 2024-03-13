@@ -1,12 +1,12 @@
 {% extends "main_layout.html" %}
 {% block title %}New TV Show{% endblock %}
 
-{% block heading %}Add a New Show{% endblock %}
+{% block heading %}{% if show.title %} Edit Show {% else %}Add a New Show {% endif %}{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-5">
-        <form action="{% url 'add_new_show' %}" method="post">
+        <form action="{% if show.title %} {% url 'update_show' show_id=show.id %} {% else %}{% url 'add_new_show' %} {% endif %}" method="post">
             {% csrf_token %}
             <div class="row mb-3">
                 <label for="show_title" class="form-label">Title</label>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-6 pe-0">
                     <label for="release_date" class="form-label">Release Date</label>
-                    <input class="form-control" type="date" name="release_date" id="release_date" >
+                    <input class="form-control" type="date" name="release_date" id="release_date" value="{% if show.release_date %}{{show.release_date | date:'Y-m-d'}}{% endif %}" >
                 </div>
             </div>
             <div class="row mb-3">
@@ -31,7 +31,7 @@
             </div>
             {% if show.title %}
             <div class="row mb-3 justify-content-center">
-                <a class="btn btn-info w-50" href="{% url 'render_show_details' show_id=10 %}" >Go To Show</a>
+                <a class="btn btn-info w-50" href="{% url 'render_show_details' show_id=show.id %}" >Go To Show</a>
             </div>
             {% endif %}
         </form>

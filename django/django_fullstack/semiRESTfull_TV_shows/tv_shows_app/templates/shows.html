@@ -13,17 +13,30 @@
             <th>Release Date</th>
             <th class="text-center">Action</th>
         </tr>
+        {% for show in shows %}
         <tr>
-            <td>1</td>
-            <td>Some tv show</td>
-            <td>Network name</td>
-            <td>11/2/2024</td>
-            <td class="text-center">
-                <a href="{% url 'render_show_details' show_id=2 %}" class="btn btn-success me-4">Show</a>
-                <a href="{% url 'edit_show' show_id=5 %}" class="btn btn-primary me-4">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+            <td>{{show.id}}</td>
+            <td>{{show.title}}</td>
+            <td>{{show.network}}</td>
+            <td>{{show.release_date}}</td>
+            <td class="">
+                <div class="row justify-content-center ">
+                    <div class="col-auto">
+                        <a href="{% url 'render_show_details' show_id=show.id %}" class="btn btn-success me-4">Show</a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{% url 'edit_show' show_id=show.id %}" class="btn btn-primary me-4">Edit</a>
+                    </div>
+                    <div class="col-auto">
+                        <form action="{% url 'delete_show' show_id=show.id %}" method="post">
+                            {% csrf_token %}
+                            <input  class="btn btn-danger w-100" type="submit" value="Delete">
+                        </form>
+                    </div>
+                </div>
             </td>
         </tr>
+        {% endfor %}
     </table>
 </div>
 <div class="row mb-3">
