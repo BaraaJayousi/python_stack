@@ -1,0 +1,35 @@
+{% extends 'main_layout.html' %}
+
+{% block title %}Destroy Course{% endblock %}
+
+{% block heading %}Are you sure you want to delete the following course?{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="row mb-3">
+        <label for="course_name" class="col-form-label col-1">Name:</label>
+        <div class="col-5">
+            <input type="text" name="course_name" id="course_name" class="form-control" readonly disabled value="{{course.name}}">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="course_desc" class="col-form-label col-1">Description:</label>
+        <div class="col-5">
+            <textarea name="course_desc" id="course_desc" cols="30" rows="5" class="form-control" style="resize: none;" readonly disabled>{{course.description}}</textarea>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <form class="row" action="{% url 'destroy_course' course_id=course.id %}" method="post">
+        {% csrf_token %}
+        <div class="col-1">
+            <a class="btn btn-info w-100" href="/">No</a>
+        </div>
+        <div class="col-5">
+            <input class="btn btn-danger w-100" type="submit" value="Yes! I want to delete this">
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
