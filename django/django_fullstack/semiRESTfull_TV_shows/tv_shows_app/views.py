@@ -1,7 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponse
+from django.contrib import messages
 from .models import *
 
 # Create your views here.
+
+
 
 def render_shows(request):
     context ={
@@ -16,9 +19,18 @@ def render_new_show_form(request):
     return render(request, 'new_show.html')
 
 def add_new_show(request):
+    
     if request.method == 'POST':
-        new_show = TV_shows.objects.create(title=request.POST['show_title'], network=request.POST['network_name'],notes=request.POST['show_desc'], release_date=request.POST['release_date'])
-    return redirect(f"/shows/{new_show.id}")
+        errors = TV_shows.objects.tv_show_validation(request.POST)
+        
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            
+            return redirect(f"/shows/new")
+        else:
+            new_show = TV_shows.objects.create(title=request.POST['show_title'], network=request.POST['network_name'],notes=request.POST['show_desc'], release_date=request.POST['release_date'])
+            return redirect(f"/shows/{new_show.id}")
 
 def show_details(request, show_id):
     context = {
@@ -34,13 +46,21 @@ def edit_show(request, show_id):
 
 def update_show(request, show_id):
     if request.method == 'POST':
-        show = TV_shows.objects.get(id = show_id)
-        show.title = request.POST['show_title']
-        show.network = request.POST['network_name']
-        show.notes = request.POST['show_desc']
-        show.release_date = request.POST['release_date']
-        show.save()
-    return redirect(f'/shows/{show_id}')
+        errors = TV_shows.objects.tv_show_validation(request.POST)
+
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            
+            return redirect(f"/shows/{show_id}/edit")
+        else:
+            show = TV_shows.objects.get(id = show_id)
+            show.title = request.POST['show_title']
+            show.network = request.POST['network_name']
+            show.notes = request.POST['show_desc']
+            show.release_date = request.POST['release_date']
+            show.save()
+            return redirect(f'/shows/{show_id}')
 
 def delete_show(request,show_id):
     if request.method == 'POST':

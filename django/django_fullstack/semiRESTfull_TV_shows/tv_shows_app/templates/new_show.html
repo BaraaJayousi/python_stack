@@ -1,4 +1,5 @@
 {% extends "main_layout.html" %}
+{% load static %}
 {% block title %}New TV Show{% endblock %}
 
 {% block heading %}{% if show.title %} Edit Show {% else %}Add a New Show {% endif %}{% endblock %}
@@ -6,25 +7,32 @@
 {% block content %}
 <div class="row">
     <div class="col-5">
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li {% if message.tags %} class="text-{{message.tags}}" {% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <form action="{% if show.title %} {% url 'update_show' show_id=show.id %} {% else %}{% url 'add_new_show' %} {% endif %}" method="post">
             {% csrf_token %}
             <div class="row mb-3">
                 <label for="show_title" class="form-label">Title</label>
-                <input class="form-control" type="text" name="show_title" id="show_title" value="{% if show.title %}{{show.title}}{% endif %}">
+                <input class="form-control" type="text" name="show_title" id="show_title" value="{% if show.title %}{{show.title}}{% endif %}" required>
             </div>
             <div class="row mb-3">
                 <div class="col-6 ps-0">
                     <label for="network_name" class="form-label">Network</label>
-                    <input class="form-control" type="text" name="network_name" id="network_name"  value="{% if show.network %}{{show.network}}{% endif %}">
+                    <input class="form-control" type="text" name="network_name" id="network_name"  value="{% if show.network %}{{show.network}}{% endif %}" required>
                 </div>
                 <div class="col-6 pe-0">
                     <label for="release_date" class="form-label">Release Date</label>
-                    <input class="form-control" type="date" name="release_date" id="release_date" value="{% if show.release_date %}{{show.release_date | date:'Y-m-d'}}{% endif %}" >
+                    <input class="form-control" type="date" name="release_date" id="release_date" value="{% if show.release_date %}{{show.release_date | date:'Y-m-d'}}{% endif %}" required>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="show_desc" class="form-label">Description</label>
-                <textarea class="form-control" type="text" name="show_desc" id="show_desc" rows="5" cols="30" style="resize:none"  >{% if show.notes %}{{show.notes}}{% endif %}</textarea>
+                <label for="show_desc" class="form-label">Description (Optional)</label>
+                <textarea class="form-control" type="text" name="show_desc" id="show_desc" rows="5" cols="30" style="resize:none">{% if show.notes %}{{show.notes}}{% endif %}</textarea>
             </div>
             <div class="row mb-3 justify-content-center">
                 <input class="btn btn-primary w-50" type="submit"  value="{% if show.title %}Update {% else %} Create {% endif %}">
@@ -37,5 +45,4 @@
         </form>
     </div>
 </div>
-
 {% endblock %}
