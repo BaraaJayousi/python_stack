@@ -13,7 +13,7 @@ class UsersValidation(models.Manager):
             messages['l_name'] = "Last name must be more than 2 characters"
         if not email_pattern.match(user_data['email']):
             messages['email'] = "please provide a valid email address e.g. example@domain.com"
-        if self.objects.filter(email=user_data['email']):
+        if self.filter(email=user_data['email']):
             messages['email_duplicate'] = "This email is already taken"
         if len(user_data['password']) < 8:
             messages['password'] = "Password must be atleast 8 characters long"
