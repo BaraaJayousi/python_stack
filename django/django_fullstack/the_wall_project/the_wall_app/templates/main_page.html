@@ -1,0 +1,92 @@
+{% extends 'main_layout.html' %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'styles/index.css' %}">{% endblock %}
+{% block user_greeting %}Welcome {{logged_in_user.first_name}} 🙋‍♂️{% endblock %}
+{% block content %}
+
+{{flash_msgs}}
+<form class="mb-5" action="{% url 'post_user_message' %}" method="post">
+    {% csrf_token %}
+    <div class="form-floating">
+        <textarea class="form-control col-8 mb-2" name="user_message" id="user_message" cols="30" rows="10" placeholder="Type your message here ..." required></textarea>
+        <label class="form-label" for="user_message">Post a message</label>
+    </div>
+    <input type="hidden" name="poster_user_id" value="{{logged_in_user.id}}">
+    <div class="col-2 offset-10">
+        <input class="btn btn-primary w-100" type="submit" value="Post a message" >
+    </div>
+</form>
+
+{% if messages %}
+    {% for flash_msg in messages %}
+    <p class="text-{{flash_msg.extra_tags}} fw-bold">{{flash_msg}}</p>
+    {% endfor %}
+{% endif %}
+
+{% for message in all_messages %}
+<div class="card mb-3">
+    <div class="card-body ">
+        <div class="row justify-content-between ">
+            <div class="col-3">
+                <h5 class="card-title mb-4">{{message.user_id.first_name}} - {{message.created_at|date:'M d Y - H:m' }}</h5>
+            </div>
+            {% if message.user_id.id == logged_in_user.id %}
+            <div class="col-2">
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-outline-secondary py-0 " data-bs-toggle="dropdown" aria-expanded="false">
+                        <h5 class="fw-bolder">...</h5>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form action="{% url 'process_message' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="edit_message">
+                                <input type="hidden" name="message_id" value="{{message.id}}">
+                                <input class="dropdown-item" type="submit" value="Edit 🖊">
+                            </form>
+                        </li>
+                        <li>
+                            <form action="{% url 'process_message' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="delete_message">
+                                <input type="hidden" name="message_id" value="{{message.id}}">
+                                <input class="dropdown-item" type="submit" value="Delete 🚮">
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <p class="card-text">{{message.message}}</p>
+    </div>
+    <div class="row my-3">
+        <div class="col-10 offset-1">
+            <div class="card border-end-0 border-start-0 rounded-0">
+                {% for comment in message.messages_comments.all %}
+                <div class="card-body pb-0">
+                    <h5 class="card-title">{{comment.user_id.first_name}} - {{ comment.created_at|date:'M d Y - H:m' }}</h5>
+                    <p>{{comment.comment}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <form action="{% url 'post_user_comment' %}" class="col-10 offset-1" method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                <textarea class="form-control col-8 mb-2" name="user_comment" id="user_comment" cols="30" rows="10" placeholder="Type your comment here ..." required></textarea>
+                <label class="form-label" for="user_comment">Post a comment</label>
+            </div>
+            <input type="hidden" name="comment_user_id" value="{{logged_in_user.id}}">
+            <input type="hidden" name="message_id" value="{{message.id}}">
+            <div class="col-2 offset-10">
+                <input class="btn btn-primary w-100" type="submit" value="Post a comment" >
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
