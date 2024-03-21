@@ -17,7 +17,6 @@ def render_main_page(request):
 def post_user_message(request):
     if request.method == 'POST':
         if 'user_id' in request.session:
-            
             if int(request.POST['poster_user_id']) == request.session['user_id']:
                 Messages.objects.create(user_id = Users.objects.get(id =request.POST['poster_user_id']), message=request.POST['user_message'])
     return redirect('/wall')
