@@ -1,5 +1,7 @@
 {% extends 'main_layout.html' %}
 
+{% block user_greeting %} Welcome, {{user.first_name|title}}!🙋‍♂️ {% endblock %}
+
 {% block title %} Book Title {% endblock %}
 
 {% block content %}
@@ -7,18 +9,18 @@
         <div class="col-7">
             <div class="row mb-3">
                 <div class="col-7">
-                    <h1>Book title here</h1>
+                    <h1>{{book.title}}</h1>
                 </div>
             </div>
             <div class="row mb-3">
-                <p>Added By: <span>Uploader Name Here</span></p>
-                <p>Added on: <span>Sep 22, 2018 @ 1:11 am</span></p>
-                <p>Last Updated on: <span>Sep 22, 2018 @ 1:11 am</span></p>
+                <p>Added By: <span>{{book.uploaded_by.first_name|title}} {{book.uploaded_by.last_name|title}}</span></p>
+                <p>Added on: <span>{{book.created_at}}</span></p>
+                <p>Last Updated on: <span>{{book.updated_at}}</span></p>
             </div>
             <div class="row mb-3">
                 <label for="book_desc" class="col-form-label col-2">Description</label>
                 <div class="col-6">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam facere error quia similique ut aliquid quas qui esse cumque? Consequuntur, ea? Praesentium, accusantium inventore. Fugit, adipisci? Saepe ad quisquam aut!</p>
+                    <p>{{book.description}}</p>
                 </div>
             </div>
         </div>
@@ -26,12 +28,41 @@
             <h1 class="mb-3">Users Who lIke This book:</h1>
             <div class="card mb-3">
                 <div class="card-body">
-                    <ul>
-                        <li>User who likes this book</li>
-                    </ul>
+                    {% if book.user_who_like.all %}
+                    <table class="table table-hover">
+                        {% for user_like_book in book.user_who_like.all %}
+                            <tr>
+                                <td>{{user_like_book.first_name|title}} {{user_like_book.last_name|title}}</td>
+                                {% if is_user_fav_book and user.id == user_like_book.id%}
+                                <td ><form class="row justify-content-end" action="{% url 'process_fav_book' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="col-auto">
+                                        <input type="hidden" name="action" value="remove_from_fav">
+                                        <input type="hidden" name="book_id" value="{{book.id}}">
+                                        <input type="hidden" name="path" value="{{request.path}}">
+                                        <input class="btn btn-danger" type="submit" value="Remove Favorite">
+                                    </div>
+                                </form></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}    
+                    </table>
+                    {% else %}
+                    <p>No one liked this book, Be the first who like it</p>
+                    {% endif %}
                 </div>
             </div>
-            <a class="btn btn-outline-primary" href="#">Add to Favorite</a>
+            {% if not is_user_fav_book %}
+            <form class="row justify-content-end" action="{% url 'process_fav_book' %}" method="post">
+                {% csrf_token %}
+                <div class="">
+                    <input type="hidden" name="action" value="add_to_fav">
+                    <input type="hidden" name="book_id" value="{{book.id}}">
+                    <input type="hidden" name="path" value="{{request.path}}">
+                    <input class="btn btn-outline-primary" type="submit" value="Add To Favorite">
+                </div>
+            </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
