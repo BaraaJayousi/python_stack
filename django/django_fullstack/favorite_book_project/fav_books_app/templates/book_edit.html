@@ -1,0 +1,46 @@
+{% extends 'main_layout.html' %}
+
+{% block title %} Book Title {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-7">
+            <form action="{% url 'edit_book' %}" method="post">
+                <div class="row mb-3">
+                    <div class="col-7">
+                        <input class='form-control' type="text" name="book_title" id="book_title">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <p>Added By: <span>Uploader Name Here</span></p>
+                    <p>Added on: <span>Sep 22, 2018 @ 1:11 am</span></p>
+                    <p>Last Updated on: <span>Sep 22, 2018 @ 1:11 am</span></p>
+                </div>
+                <div class="row mb-3">
+                    <label for="book_desc" class="col-form-label col-2">Description</label>
+                    <div class="col-6">
+                        <textarea name="book_desc" id="book_desc" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3 g-1">
+                    <div class="col-2 offset-2">
+                        <input class="btn btn-primary w-100" type="submit" name="action" value="Update">
+                    </div>
+                    <div class="col-2">
+                        <input class="btn btn-outline-danger w-100" type="submit" name="action" value="Delete">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-5">
+            <h1 class="mb-3">Users Who lIke This book:</h1>
+            <div class="card">
+                <div class="card-body">
+                    <ul>
+                        <li>User who likes this book <a class="btn btn-danger" href="#">Unfavorite</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
