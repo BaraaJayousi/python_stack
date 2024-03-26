@@ -9,7 +9,6 @@ def index(request):
     return render(request, "store/index.html", context)
 
 def checkout(request):
-    
     context = {
         "invoice_total": Order.objects.all().order_by("-created_at").first().total_price,
         "all_orders_items_total": Order.objects.aggregate(Sum("quantity_ordered"))['quantity_ordered__sum'],
