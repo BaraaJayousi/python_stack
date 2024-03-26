@@ -19,9 +19,12 @@ def checkout(request):
 
 def process_order(request):
     if request.method == 'POST':
-        quantity_from_form = int(request.POST["quantity"])
-        price_from_form = float(request.POST["price"])
-        total_charge = quantity_from_form * price_from_form
-        print("Charging credit card...")
-        Order.objects.create(quantity_ordered=quantity_from_form, total_price=total_charge)
-        return redirect('/checkout')
+        product_price = Product.objects.filter(id = request.POST['product_id']).first().price
+        if product_price:
+            quantity_from_form = int(request.POST["quantity"])
+            price_from_form = float(product_price)
+            total_charge = quantity_from_form * price_from_form
+            print("Charging credit card...")
+            Order.objects.create(quantity_ordered=quantity_from_form, total_price=total_charge)
+            return redirect('/checkout')
+        return redirect('/')
